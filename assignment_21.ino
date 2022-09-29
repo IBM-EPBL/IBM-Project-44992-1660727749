@@ -1,33 +1,33 @@
 void setup() 
 { 
   Serial.begin(9600);
-  pinMode(7, INPUT);
-  pinMode(12, OUTPUT);
+  pinMode(3, INPUT);
+  pinMode(9, OUTPUT);
 }
 
 void loop()
 {
-  int motion=digitalRead(7);
+  int motion=digitalRead(3);
   if(motion==1)
   {
     Serial.println("Motion detected");
-    tone(12,800);
+    tone(9,500);
   } 
   else
   { 
     Serial.println("Motion not detected");
-    noTone(12);
+    noTone(9);
   }
-  double data=analogRead(A0);
+  double data=analogRead(A2);
   double n=data;
   Serial.print("Analog value = ");
   Serial.println(n);
   if(n==227) 
   { 
-    tone(12,100);
+    tone(9,200);
   }
   else 
   { 
-    noTone(12);
+    noTone(9);
   }
 }
