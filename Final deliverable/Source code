@@ -1,0 +1,131 @@
+import paho.mqtt.client as mqtt
+import time
+import random
+def on_connect(client,userdata,flags,rc):
+     print('Connected to broker'+str(rc))
+     client.subscribe('floor2/temp')
+     print("IOT sub")
+     client.subscribe('floor2/hum')
+     print("IOT sub")
+     client.subscribe('floor3/temp')
+     print("IOT sub")
+     client.subscribe('floor3/hum')
+     print("IOT sub")
+     client.subscribe('floor4/temp')
+     print("IOT sub")
+     client.subscribe('floor4/hum')
+     print("IOT sub")
+     client.subscribe('floor1/temp')
+     print("IOT sub")
+     client.subscribe('floor1/hum')
+     print("IOT sub")
+def on_message(client,userdata,msg):
+    print (str(msg.payload))
+ 
+client = mqtt.Client()
+client.clientID="clientId-qMjlvTE4Wb"
+client.on_connect=on_connect
+client.on_message=on_message
+#Client.connect(broker,port=port)
+
+client.username_pw_set("wait","kkkk")
+client.connect('broker.mqtt-dashboard.com',1883,60)
+
+
+
+client.loop_start()
+time.sleep(1)
+  
+Temperature1 = random.randint(0,50)  
+print(Temperature1)
+Temperature2 = random.randint(0,50)  
+print(Temperature2)
+Temperature3 = random.randint(0,50)  
+print(Temperature3)
+Temperature4 = random.randint(0,50)  
+print(Temperature4)
+Humidity1 = random.randint(0,100)  
+print(Humidity1)
+Humidity2 = random.randint(0,100)  
+print(Humidity2)
+Humidity3 = random.randint(0,100)  
+print(Humidity3)
+Humidity4 = random.randint(0,100)  
+print(Humidity4)
+while True:
+    #Floor 1--temperature
+    client.publish("floor1/temp",Temperature1)
+    print("Message ")
+    time.sleep(10)
+    client.publish("floor1/temp",Temperature1)
+    time.sleep(10)
+    #Floor 1--humidity
+    client.publish("floor1/hum",Humidity1)
+    print("Message ")
+    time.sleep(10)
+    client.publish("floor1/hum",Humidity1)
+    time.sleep(10)
+    ##############################
+    if (Temperature1>=43 or Humidity1<=50):
+        client.publish("floor1/FIRE","FIRE!!!!!!!!")
+        print("b is lesser than a")
+    time.sleep(10)
+    ##############################
+    #Floor 2--temperature
+    client.publish("floor2/temp",Temperature2)
+    print("Message ")
+    time.sleep(10)
+    client.publish("floor2/temp",Temperature2)
+    time.sleep(10)
+    #Floor 2--Humidity
+    client.publish("floor2/hum",Humidity2)
+    print("Message ")
+    time.sleep(10)
+    client.publish("floor2/hum",Humidity2)
+    time.sleep(10)
+    ##############################
+    if (Temperature2>43 or Humidity1<=50):
+        client.publish("floor2/FIRE","FIRE!!!!!!!!")
+        print("b is lesser than a")
+    time.sleep(10)
+    ##############################
+    #Floor 3--temperature
+    client.publish("floor3/temp",Temperature3)
+    print("Message ")
+    time.sleep(10)
+    client.publish("floor3/temp",Temperature3)
+    time.sleep(10)
+    #Floor 3--Humidity
+    client.publish("floor3/hum",Humidity3)
+    print("Message ")
+    time.sleep(10)
+    client.publish("floor3/hum",Humidity3)
+    time.sleep(10)
+    ##############################
+    if (Temperature3>43 or Humidity1<=50):
+        client.publish("floor3/FIRE","FIRE!!!!!!!!")
+        print("b is lesser than a")
+    time.sleep(10)
+    ##############################
+    #Floor 4--temperature
+    client.publish("floor4/temp",Temperature4)
+    print("Message ")
+    time.sleep(10)
+    client.publish("floor4/temp",Temperature4)
+    time.sleep(10)
+    #Floor 4--Humidity
+    client.publish("floor4/hum",Humidity4)
+    print("Message ")
+    time.sleep(10)
+    client.publish("floor4/hum",Humidity4)
+    time.sleep(10)
+    #############################
+    if (Temperature4>43 or Humidity1<=50):
+        client.publish("floor4/FIRE","FIRE!!!!!!!!")
+        print("b is lesser than a")
+    time.sleep(10)
+   ##############################
+client.loop_stop()
+client.disconnect()
+
+
